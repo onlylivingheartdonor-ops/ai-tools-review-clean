@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/onlylivingheartdonor-ops/ai-tools-review#readme",
   "dependencies": {
-    "next": "^16.2.6",
+    "next": "^15.2.6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   }

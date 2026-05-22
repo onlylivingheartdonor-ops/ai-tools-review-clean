@@ -9,7 +9,8 @@ export async function generateStaticParams() {
 
 // Generate metadata for each tool page
 export async function generateMetadata({ params }) {
-  const tool = AI_TOOLS.find((t) => t.slug === params.slug);
+  const { slug } = await params;
+  const tool = AI_TOOLS.find((t) => t.slug === slug);
   if (!tool) return { title: "Tool Not Found" };
   
   return {
@@ -19,8 +20,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function ToolPage({ params }) {
-  const tool = AI_TOOLS.find((t) => t.slug === params.slug);
+export default async function ToolPage({ params }) {
+  const { slug } = await params;
+  const tool = AI_TOOLS.find((t) => t.slug === slug);
   
   if (!tool) {
     notFound();

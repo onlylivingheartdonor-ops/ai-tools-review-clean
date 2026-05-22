@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { AI_TOOLS } from "./lib/tools";
 import { RELATED_LINKS as RELATED } from "./lib/links";
