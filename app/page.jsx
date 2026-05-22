@@ -21,7 +21,14 @@ const css = `
   .btn-review:hover { background: #7c3aed; }
   .status-badge { font-size: 10px; padding: 0.2rem 0.5rem; border-radius: 4px; background: #f5f3ef; color: #888; }
   .status-live { background: #e8f4f0; color: #0f6e56; }
-  @media (max-width: 800px) { th, td { padding: 0.5rem; } .commission-badge { white-space: normal; } }
+  .hero-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 16px; margin-bottom: 2rem; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .trust-section { display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; }
+  .trust-image { flex: 1; min-width: 200px; }
+  .trust-image img { width: 100%; border-radius: 16px; }
+  .trust-text { flex: 2; text-align: left; }
+  .trust-text h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 1rem; color: #1a1a1a; }
+  .trust-text p { font-size: 14px; line-height: 1.6; color: #444; }
+  @media (max-width: 800px) { th, td { padding: 0.5rem; } .commission-badge { white-space: normal; } .trust-section { flex-direction: column; } }
 `;
 
 export default function HomePage() {
@@ -33,6 +40,13 @@ export default function HomePage() {
           <p className="eyebrow">Curated for Creators</p>
           <h1>Best AI Tools for Creators<br /><em>2026 Comparison</em></h1>
         </div>
+
+        {/* HERO IMAGE WITH PERSON */}
+        <img 
+          src="/images/people/hero.jpg" 
+          alt="Professional reviewing AI tools on laptop"
+          className="hero-image"
+        />
 
         <div className="card">
           <table>
@@ -57,11 +71,11 @@ export default function HomePage() {
                         <div style={{ fontSize: "11px", color: "#888" }}>{tool.tagline}</div>
                       </div>
                     </div>
-                  </td>
+                   </td>
                   <td>
                     {tool.bestFor}
                     <div style={{ fontSize: "11px", color: "#888", marginTop: "0.25rem" }}>{tool.priceRange}</div>
-                  </td>
+                   </td>
                   <td><span className="commission-badge">{tool.commission}</span></td>
                   <td>{tool.cookie}</td>
                   <td>{tool.freeTier}</td>
@@ -69,11 +83,31 @@ export default function HomePage() {
                     <Link href={`/tools/${tool.slug}`} className="btn-review">
                       {tool.reviewStatus === "live" ? "Read Review →" : "Coming Soon"}
                     </Link>
-                  </td>
+                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* TRUST SECTION WITH HUMAN IMAGE */}
+        <div className="card">
+          <div className="trust-section">
+            <div className="trust-image">
+              <img 
+                src="/images/people/working.jpg" 
+                alt="Real person testing AI tools at desk"
+              />
+            </div>
+            <div className="trust-text">
+              <h2>Real tests. Real results.</h2>
+              <p>
+                I don't just read marketing materials. I sign up, pay for accounts, 
+                and spend 30 days testing each AI tool with real projects. 
+                These reviews are based on actual use, not affiliate copy.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Adsterra Ad Slot */}
