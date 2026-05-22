@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+	<meta name='impact-site-verification' value='3b8829bc-8f97-4931-b938-fc432ec8dfc2'>
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3475627763908800" crossOrigin="anonymous"></script>
         {/* Adsterra script will go here */}
       </head>
