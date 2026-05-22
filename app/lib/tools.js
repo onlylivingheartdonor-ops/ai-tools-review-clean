@@ -203,7 +203,7 @@ For casual users, Jasper is overkill. For teams and serious creators, it is the 
     difficulty: "Easy",
     affiliateLink: "https://copy.ai?via=YOUR_ID",
     officialLink: "https://www.copy.ai",
-    reviewStatus: "coming_soon",
+    reviewStatus: "live",
         longFormContent: `Copy.ai Review 2026: I Tested the "Free Forever" AI Writer for 30 Days
 
 Copy.ai has a reputation. It's the scrappy underdog. The tool that offers a genuinely usable free plan while charging a fraction of what Jasper costs. The one that solo creators and bootstrapped founders swear by.
@@ -394,7 +394,7 @@ For everyone else, Copy.ai is the smart choice. Start free, upgrade when you nee
     difficulty: "Medium",
     affiliateLink: "https://writesonic.com?via=YOUR_ID",
     officialLink: "https://writesonic.com",
-    reviewStatus: "coming_soon",
+    reviewStatus: "live",
     longFormContent: `Writesonic Review 2026: I Tested the "SEO Machine" for 30 Days
 
 Writesonic has a reputation. It's the SEO-focused one. The tool that promises real-time data, built-in optimization, and content that actually ranks. The one that claims to be an all-in-one platform for content creation, not just a writing assistant.
@@ -592,7 +592,7 @@ Know your priorities. If ranking is the goal, Writesonic is the tool.
     difficulty: "Easy",
     affiliateLink: "https://rytr.me?via=YOUR_ID",
     officialLink: "https://rytr.me",
-    reviewStatus: "coming_soon",
+    reviewStatus: "live",
     longFormContent: `Rytr Review 2026: I Tested the "Budget King" for 30 Days
 
 Rytr has a reputation. It is the cheap one. The tool that costs less than a Netflix subscription. The one that promises "good enough" AI writing for a fraction of the price of Jasper or Copy.ai.
@@ -774,7 +774,7 @@ For a hobbyist or student, Rytr is a fantastic deal. For a professional, it is a
     difficulty: "Hard",
     affiliateLink: "https://surferseo.com?aff=YOUR_ID",
     officialLink: "https://surferseo.com",
-    reviewStatus: "coming_soon",
+    reviewStatus: "live",
     longFormContent: `Surfer SEO Review 2026: I Used Data to Optimize 10 Articles for 30 Days
 
 Surfer SEO has a reputation. It is the data-driven one. The tool that promises to remove guesswork from content optimization. The one that SEO agencies swear by and casual bloggers avoid because of the price.
@@ -1008,7 +1008,7 @@ Surfer is not magic. It will not fix bad writing. But it will tell you exactly w
     difficulty: "Easy",
     affiliateLink: "https://pictory.ai?ref=YOUR_ID",
     officialLink: "https://pictory.ai",
-    reviewStatus: "coming_soon",
+    reviewStatus: "live",
     longFormContent: `Pictory AI Review 2026: I Turned 10 Blog Posts into Videos in 30 Days
 
 Pictory AI has a reputation. It is the text-to-video one. The tool that promises to turn blog posts, articles, and scripts into engaging videos. The one that claims to help content repurposing without video editing skills.
@@ -1208,7 +1208,7 @@ If you produce written content and want to expand to video without learning Adob
     difficulty: "Easy",
     affiliateLink: "https://tailwindapp.com?aff=YOUR_ID",
     officialLink: "https://www.tailwindapp.com",
-    reviewStatus: "coming_soon",
+    reviewStatus: "live",
     longFormContent: `Tailwind Review 2026: I Automated Social Media for 30 Days
 
 Tailwind has a reputation. It is the Pinterest and Instagram tool. The one that promises to automate social media scheduling, discover content to share, and grow your following. The tool that claims to save hours per week.

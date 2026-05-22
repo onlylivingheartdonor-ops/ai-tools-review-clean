@@ -2,6 +2,168 @@ import { AI_TOOLS } from "../../lib/tools";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
+// Lightweight markdown renderer — handles all the formatting used in longFormContent
+function renderMarkdown(text) {
+  const lines = text.split("\n");
+  const elements = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i].trim();
+
+    // Section divider ---
+    if (line === "---") {
+      elements.push(<hr key={i} style={{ border: "none", borderTop: "2px solid #e0dbd3", margin: "2rem 0" }} />);
+      i++;
+      continue;
+    }
+
+    // H1
+    if (line.startsWith("# ")) {
+      elements.push(<h1 key={i} style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(1.6rem,4vw,2.2rem)", margin: "2rem 0 1rem" }}>{renderInline(line.slice(2))}</h1>);
+      i++;
+      continue;
+    }
+
+    // H2
+    if (line.startsWith("## ")) {
+      elements.push(<h2 key={i} style={{ fontFamily: "'DM Serif Display', serif", fontSize: "1.4rem", color: "#1a1a1a", margin: "2rem 0 0.75rem", paddingBottom: "0.4rem", borderBottom: "1px solid #e0dbd3" }}>{renderInline(line.slice(3))}</h2>);
+      i++;
+      continue;
+    }
+
+    // H3
+    if (line.startsWith("### ")) {
+      elements.push(<h3 key={i} style={{ fontSize: "1.1rem", fontWeight: "700", color: "#1a1a1a", margin: "1.5rem 0 0.5rem" }}>{renderInline(line.slice(4))}</h3>);
+      i++;
+      continue;
+    }
+
+    // Bold-only line used as a heading (e.g. **Week 1: ...**)
+    if (line.startsWith("**") && line.endsWith("**") && !line.slice(2, -2).includes("**")) {
+      elements.push(<h3 key={i} style={{ fontSize: "1.05rem", fontWeight: "700", color: "#1a1a1a", margin: "1.75rem 0 0.5rem" }}>{line.slice(2, -2)}</h3>);
+      i++;
+      continue;
+    }
+
+    // Markdown table
+    if (line.startsWith("|")) {
+      const tableLines = [];
+      while (i < lines.length && lines[i].trim().startsWith("|")) {
+        tableLines.push(lines[i].trim());
+        i++;
+      }
+      const rows = tableLines.filter(r => !/^\|[-| :]+\|$/.test(r));
+      const header = rows[0];
+      const body = rows.slice(1);
+      const parseCells = r => r.split("|").slice(1, -1).map(c => c.trim());
+
+      elements.push(
+        <div key={"table-" + i} style={{ overflowX: "auto", margin: "1.5rem 0" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+            <thead>
+              <tr>
+                {parseCells(header).map((cell, ci) => (
+                  <th key={ci} style={{ background: "#f5f3ef", padding: "0.75rem 1rem", textAlign: "left", fontWeight: "600", fontSize: "11px", letterSpacing: "0.06em", textTransform: "uppercase", borderBottom: "2px solid #e0dbd3", whiteSpace: "nowrap" }}>
+                    {renderInline(cell)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {body.map((row, ri) => (
+                <tr key={ri} style={{ background: ri % 2 === 0 ? "#fff" : "#faf8f4" }}>
+                  {parseCells(row).map((cell, ci) => (
+                    <td key={ci} style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #e0dbd3", verticalAlign: "top" }}>
+                      {renderInline(cell)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+      continue;
+    }
+
+    // Unordered list
+    if (line.startsWith("- ")) {
+      const items = [];
+      while (i < lines.length && lines[i].trim().startsWith("- ")) {
+        items.push(lines[i].trim().slice(2));
+        i++;
+      }
+      elements.push(
+        <ul key={"ul-" + i} style={{ paddingLeft: "1.4rem", margin: "0.75rem 0 1rem" }}>
+          {items.map((item, ii) => (
+            <li key={ii} style={{ marginBottom: "0.4rem", lineHeight: "1.6" }}>{renderInline(item)}</li>
+          ))}
+        </ul>
+      );
+      continue;
+    }
+
+    // Ordered list
+    if (/^\d+\.\s/.test(line)) {
+      const items = [];
+      while (i < lines.length && /^\d+\.\s/.test(lines[i].trim())) {
+        items.push(lines[i].trim().replace(/^\d+\.\s/, ""));
+        i++;
+      }
+      elements.push(
+        <ol key={"ol-" + i} style={{ paddingLeft: "1.4rem", margin: "0.75rem 0 1rem" }}>
+          {items.map((item, ii) => (
+            <li key={ii} style={{ marginBottom: "0.4rem", lineHeight: "1.6" }}>{renderInline(item)}</li>
+          ))}
+        </ol>
+      );
+      continue;
+    }
+
+    // Empty line
+    if (line === "") {
+      i++;
+      continue;
+    }
+
+    // Regular paragraph
+    elements.push(
+      <p key={i} style={{ margin: "0 0 1rem", lineHeight: "1.75", color: "#444" }}>
+        {renderInline(line)}
+      </p>
+    );
+    i++;
+  }
+
+  return elements;
+}
+
+// Renders inline markdown: **bold**, *italic*, `code`
+function renderInline(text) {
+  const parts = [];
+  const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`)/g;
+  let last = 0;
+  let match;
+  let key = 0;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match.index > last) parts.push(text.slice(last, match.index));
+    const m = match[0];
+    if (m.startsWith("**")) {
+      parts.push(<strong key={key++}>{m.slice(2, -2)}</strong>);
+    } else if (m.startsWith("*")) {
+      parts.push(<em key={key++}>{m.slice(1, -1)}</em>);
+    } else if (m.startsWith("`")) {
+      parts.push(<code key={key++} style={{ background: "#f0eee9", padding: "0.1rem 0.35rem", borderRadius: "3px", fontSize: "0.85em" }}>{m.slice(1, -1)}</code>);
+    }
+    last = match.index + m.length;
+  }
+
+  if (last < text.length) parts.push(text.slice(last));
+  return parts.length === 1 && typeof parts[0] === "string" ? parts[0] : parts;
+}
+
 // Generate static paths for all tools at build time (SEO friendly)
 export async function generateStaticParams() {
   return AI_TOOLS.map((tool) => ({ slug: tool.slug }));
@@ -59,9 +221,9 @@ export default async function ToolPage({ params }) {
         <div style={{ background: "#f5f3ef", padding: "1rem", borderRadius: "8px" }}><strong>💸 Starting Price</strong><br />{tool.priceRange}</div>
       </div>
 
-      {/* Review Content (expands as you write more) */}
+      {/* Review Content — rendered from markdown */}
       <div style={{ lineHeight: "1.7", color: "#444" }}>
-        <p>{tool.longFormContent}</p>
+        {renderMarkdown(tool.longFormContent)}
       </div>
 
       {/* Pros and Cons */}
