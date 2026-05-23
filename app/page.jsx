@@ -71,11 +71,11 @@ export default function HomePage() {
                         <div style={{ fontSize: "11px", color: "#888" }}>{tool.tagline}</div>
                       </div>
                     </div>
-                   </td>
+                  </td>
                   <td>
                     {tool.bestFor}
                     <div style={{ fontSize: "11px", color: "#888", marginTop: "0.25rem" }}>{tool.priceRange}</div>
-                   </td>
+                  </td>
                   <td><span className="commission-badge">{tool.commission}</span></td>
                   <td>{tool.cookie}</td>
                   <td>{tool.freeTier}</td>
@@ -83,7 +83,7 @@ export default function HomePage() {
                     <Link href={`/tools/${tool.slug}`} className="btn-review">
                       {tool.reviewStatus === "live" ? "Read Review →" : "Coming Soon"}
                     </Link>
-                   </td>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -120,8 +120,8 @@ export default function HomePage() {
           <div className="disclaimer" style={{ fontSize: "11px", color: "#888", borderTop: "1px solid #e0dbd3", paddingTop: "1rem" }}>
             This site contains affiliate links. We may earn a commission if you purchase through our links, at no extra cost to you.
             <div style={{ display: "flex", gap: "1rem", marginTop: "0.75rem" }}>
-              <a href="/privacy" style={{ color: "#888", textDecoration: "underline" }}>Privacy Policy</a>
-              <a href="/terms" style={{ color: "#888", textDecoration: "underline" }}>Terms of Service</a>
+              <a href="/privacy.html" style={{ color: "#888", textDecoration: "underline" }}>Privacy Policy</a>
+              <a href="/terms.html" style={{ color: "#888", textDecoration: "underline" }}>Terms of Service</a>
             </div>
           </div>
         </div>
